@@ -140,3 +140,56 @@ function getMessage(winner, userChoice, botChoice)
     }
     return message;
 } 
+
+const buttons = document.getElementById("buttonchangeconatainer").getElementsByTagName("button");
+let buttonCopy = [];
+for(let i=0;i<buttons.length;i++)
+{   buttonCopy.push({"class": buttons[i].classList[1], "color":buttons[i].style.background});
+}
+
+
+const buttonclasses = {
+    primary: "btn-primary",
+    danger: "btn-danger",
+    warning: "btn-warning",
+    success: "btn-success",
+}
+function buttonColourChange(caller)
+{   console.log(caller.value);
+   
+
+    if(caller.value in buttonclasses)
+    {   
+        for(let i=0;i<buttons.length;i++)
+        {   console.log(buttonclasses[caller.value]);
+            buttons[i].classList.remove(buttons[i].classList[1]);
+            buttons[i].classList.add(buttonclasses[caller.value]);
+        }
+    }
+    else if(caller.value == "reset")
+    {   console.log("reset buttons");
+        console.log(buttonCopy);
+
+         for(let i=0;i<buttons.length;i++)
+         {   buttons[i].classList.remove(buttons[i].classList[1]);
+             buttons[i].classList.add(buttonCopy[i]["class"]);
+             buttons[i].style.backgroundColor = buttonCopy[i]["color"];
+         }
+    }
+    else if(caller.value == "random")
+    {
+        for(let i=0;i<buttons.length;i++)
+        {   buttons[i].classList.remove(buttons[i].classList[1]);
+            buttons[i].classList.add("btn-random");
+            buttons[i].style.backgroundColor = setBg();
+        }
+    }
+}
+function setBg(){
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+    return randomColor;
+}
+
+function resetState(){
+
+}
